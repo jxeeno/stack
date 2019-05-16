@@ -10,6 +10,7 @@ export type InputProps = {
   scene: Scene;
   navigation: NavigationProp;
   realPosition: Animated.Value;
+  transparent?: boolean;
 };
 
 export type InjectedProps = {
@@ -68,7 +69,9 @@ export default function createPointerEventsContainer<
     };
 
     private computePointerEvents() {
-      const { navigation, realPosition, scene } = this.props;
+      const { navigation, realPosition, scene, transparent } = this.props;
+      
+      if (transparent) { return 'none'; }
 
       if (scene.isStale || navigation.state.index !== scene.index) {
         // The scene isn't focused.
